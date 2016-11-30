@@ -42,6 +42,7 @@ public class FlashService extends Service {
         SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         Boolean b = sp.getBoolean("opened", true);
+        editor.putInt("appWidgetId",appWidgetId);
         if (b) {
             FlashSwitch.setFlashlightEnabled(FlashService.this, false);
             views.setImageViewResource(R.id.iv_widget, R.drawable.flashlight_off);
@@ -69,8 +70,6 @@ public class FlashService extends Service {
 
         // 设置开始监听
         Intent intentStart = new Intent(FlashService.this, FlashService.class);
-        // 为Intent对象设置Action
-//        intentStart.setAction(FLASHLIGHT);
 
         SharedPreferences sp = getSharedPreferences("FlashLight",MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -78,7 +77,7 @@ public class FlashService extends Service {
         views.setImageViewResource(R.id.iv_widget, R.drawable.flashlight_off);
         editor.putBoolean("opened", false);
         editor.apply();
-
+        appWidgetId = sp.getInt("appWidgetId",0);
         intentStart.putExtra("appWidgetId", appWidgetId);
         PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
