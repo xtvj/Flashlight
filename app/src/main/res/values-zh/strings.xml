@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">手电筒</string>
-    <string name="appwidget_text">手电筒</string>
+    <string name="app_name">照明</string>
+    <string name="appwidget_text">照明</string>
     <string name="add_widget">添加小组件</string>
-    <string name="openalllight">闪光灯全开</string>
-    <string name="tips">检测到手机上有多个闪光灯，打开此设置开启所有闪光灯！</string>
 
 </resources>
