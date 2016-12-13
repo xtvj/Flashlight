@@ -2,6 +2,4 @@
     <string name="app_name">Flashlight</string>
     <string name="appwidget_text">Flashlight</string>
     <string name="add_widget">Add widget</string>
-    <string name="openalllight">All light on</string>
-    <string name="tips">Detecting multiple flash units on your phone, turning on this setting turns on all the flash units!</string>
 </resources>

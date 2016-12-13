@@ -37,7 +37,5 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-//        boolean opened = sp.getBoolean("opened",false);
-//        toggleButton.setChecked(opened);
     }
 }
