@@ -53,13 +53,14 @@ public class FlashService extends Service {
             editor.putBoolean("opened", true);
         }
         editor.apply();
-
-
         intentStart.putExtra("appWidgetId", appWidgetId);
         PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
         appWidgetManager.updateAppWidget(appWidgetId, views);
 
+        if (b) {
+            stopSelf(flags);//关闭服务
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -71,17 +72,19 @@ public class FlashService extends Service {
         SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
         Boolean b = sp.getBoolean("opened", true);
         if (b) {
-            // 设置开始监听
-            Intent intentStart = new Intent(FlashService.this, FlashService.class);
-            FlashSwitch.setFlashlightEnabled(FlashService.this, false);
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putBoolean("opened", false);
-            editor.apply();
-            views.setImageViewResource(R.id.iv_widget, R.drawable.flashlight_off);
-            intentStart.putExtra("appWidgetId", appWidgetId);
-            PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
-            views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
-            appWidgetManager.updateAppWidget(appWidgetId, views);
+            if (appWidgetId != 0) {
+                // 设置开始监听
+                Intent intentStart = new Intent(FlashService.this, FlashService.class);
+                FlashSwitch.setFlashlightEnabled(FlashService.this, false);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putBoolean("opened", false);
+                editor.apply();
+                views.setImageViewResource(R.id.iv_widget, R.drawable.flashlight_off);
+                intentStart.putExtra("appWidgetId", appWidgetId);
+                PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
+                views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
+                appWidgetManager.updateAppWidget(appWidgetId, views);
+            }
         }
 
         super.onDestroy();

@@ -8,13 +8,13 @@
     tools:context="io.github.xtvj.flashlight.MainActivity">
 
 
-    <ToggleButton
-        android:id="@+id/bt"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/flashlight_background"
-        android:textOff=""
-        android:textOn="" />
+    <!--<ToggleButton-->
+        <!--android:id="@+id/bt"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:background="@drawable/flashlight_background"-->
+        <!--android:textOff=""-->
+        <!--android:textOn="" />-->
 
 </RelativeLayout>
