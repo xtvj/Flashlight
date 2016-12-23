@@ -3,5 +3,7 @@
     <string name="app_name">照明</string>
     <string name="appwidget_text">照明</string>
     <string name="add_widget">添加小组件</string>
+    <string name="ok">确定</string>
+    <string name="select_icon">选择图标</string>
 
 </resources>

@@ -7,15 +7,16 @@
 
     <ImageView
         android:id="@+id/iv_widget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
         android:scaleType="centerInside"
-        android:src="@drawable/flashlight_off"/>
+        android:padding="3dp" />
 
     <TextView
         android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:contentDescription="@string/appwidget_text"
         android:text="@string/appwidget_text"/>
 

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.view.View;
 import android.widget.RemoteViews;
 
 public class FlashService extends Service {
@@ -45,17 +46,25 @@ public class FlashService extends Service {
         editor.putInt("appWidgetId", appWidgetId);
         if (b) {
             FlashSwitch.setFlashlightEnabled(FlashService.this, false);
-            views.setImageViewResource(R.id.iv_widget, R.drawable.flashlight_off);
+            views.setImageViewResource(R.id.iv_widget, sp.getInt("image",0) == 0 ? R.drawable.flashlight_off : R.drawable.moon_off);
             editor.putBoolean("opened", false);
         } else {
             FlashSwitch.setFlashlightEnabled(FlashService.this, true);
-            views.setImageViewResource(R.id.iv_widget, R.drawable.flashlight_on);
+            views.setImageViewResource(R.id.iv_widget, sp.getInt("image",0) == 0 ? R.drawable.flashlight_on : R.drawable.moon_on);
             editor.putBoolean("opened", true);
         }
         editor.apply();
         intentStart.putExtra("appWidgetId", appWidgetId);
         PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
+
+        boolean show_text = sp.getBoolean("show_text",true);
+        if (show_text){
+            views.setViewVisibility(R.id.appwidget_text, View.GONE);
+        }else{
+            views.setViewVisibility(R.id.appwidget_text,View.VISIBLE);
+        }
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
 
         if (b) {
@@ -79,7 +88,7 @@ public class FlashService extends Service {
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean("opened", false);
                 editor.apply();
-                views.setImageViewResource(R.id.iv_widget, R.drawable.flashlight_off);
+                views.setImageViewResource(R.id.iv_widget, sp.getInt("image",0) == 0 ? R.drawable.flashlight_off : R.drawable.moon_off);
                 intentStart.putExtra("appWidgetId", appWidgetId);
                 PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
                 views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);

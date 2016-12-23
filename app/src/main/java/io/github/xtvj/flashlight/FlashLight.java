@@ -6,7 +6,9 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 /**
  * Implementation of App Widget functionality.
@@ -25,10 +27,18 @@ public class FlashLight extends AppWidgetProvider {
         SharedPreferences sp = context.getSharedPreferences("FlashLight",Context.MODE_PRIVATE);
         Boolean b = sp.getBoolean("opened",true);
         if (b){
-            views.setImageViewResource(R.id.iv_widget,R.drawable.flashlight_on);
+            views.setImageViewResource(R.id.iv_widget,sp.getInt("image",0) == 0 ? R.drawable.flashlight_on : R.drawable.moon_on);
         }else{
-            views.setImageViewResource(R.id.iv_widget,R.drawable.flashlight_off);
+            views.setImageViewResource(R.id.iv_widget,sp.getInt("image",0) == 0 ? R.drawable.flashlight_off : R.drawable.moon_off);
         }
+
+        boolean show_text = sp.getBoolean("show_text",true);
+        if (show_text){
+            views.setViewVisibility(R.id.appwidget_text, View.GONE);
+        }else{
+            views.setViewVisibility(R.id.appwidget_text,View.VISIBLE);
+        }
+
 
         PendingIntent pendingitent = PendingIntent.getService(context, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
 
