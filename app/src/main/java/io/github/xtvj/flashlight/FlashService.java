@@ -3,6 +3,7 @@ package io.github.xtvj.flashlight;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 public class FlashService extends Service {
-    private int appWidgetId;
     private AppWidgetManager appWidgetManager;
     private RemoteViews views;
 
@@ -35,7 +35,6 @@ public class FlashService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        appWidgetId = intent.getIntExtra("appWidgetId", 0);
 
         // 设置开始监听
         Intent intentStart = new Intent(FlashService.this, FlashService.class);
@@ -43,7 +42,6 @@ public class FlashService extends Service {
         SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         Boolean b = sp.getBoolean("opened", false);
-        editor.putInt("appWidgetId", appWidgetId);
         if (b) {
             FlashSwitch.setFlashlightEnabled(FlashService.this, false);
             views.setImageViewResource(R.id.iv_widget, sp.getInt("image",0) == 0 ? R.drawable.flashlight_off : R.drawable.moon_off);
@@ -54,7 +52,6 @@ public class FlashService extends Service {
             editor.putBoolean("opened", true);
         }
         editor.apply();
-        intentStart.putExtra("appWidgetId", appWidgetId);
         PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
 
@@ -65,7 +62,7 @@ public class FlashService extends Service {
             views.setViewVisibility(R.id.appwidget_text,View.GONE);
         }
 
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+        appWidgetManager.updateAppWidget(new ComponentName(getBaseContext(), FlashLight.class), views);
 
         if (!b) {
             stopSelf(flags);//关闭服务
@@ -81,7 +78,6 @@ public class FlashService extends Service {
         SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
         Boolean b = sp.getBoolean("opened", false);
         if (b) {
-            if (appWidgetId != 0) {
                 // 设置开始监听
                 Intent intentStart = new Intent(FlashService.this, FlashService.class);
                 FlashSwitch.setFlashlightEnabled(FlashService.this, false);
@@ -89,11 +85,9 @@ public class FlashService extends Service {
                 editor.putBoolean("opened", false);
                 editor.apply();
                 views.setImageViewResource(R.id.iv_widget, sp.getInt("image",0) == 0 ? R.drawable.flashlight_off : R.drawable.moon_off);
-                intentStart.putExtra("appWidgetId", appWidgetId);
                 PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
                 views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
-                appWidgetManager.updateAppWidget(appWidgetId, views);
-            }
+                appWidgetManager.updateAppWidget(new ComponentName(getBaseContext(), FlashLight.class), views);
         }
 
         super.onDestroy();

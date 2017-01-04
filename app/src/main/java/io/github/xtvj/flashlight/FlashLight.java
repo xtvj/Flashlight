@@ -22,8 +22,6 @@ public class FlashLight extends AppWidgetProvider {
 
         Intent intentStart = new Intent(context,FlashService.class);
 
-        intentStart.putExtra("appWidgetId", appWidgetId);
-
         SharedPreferences sp = context.getSharedPreferences("FlashLight",Context.MODE_PRIVATE);
         Boolean b = sp.getBoolean("opened",false);
         if (b){
