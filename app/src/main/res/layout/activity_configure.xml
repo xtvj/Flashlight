@@ -23,7 +23,7 @@
         android:layout_above="@+id/bt"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp"
-        android:text="设置是否隐藏文字" />
+        android:text="@string/show_text" />
 
     <Button
         android:id="@+id/bt"
@@ -36,9 +36,11 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:layout_centerInParent="true"
         android:orientation="horizontal" >
 
@@ -46,6 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:visibility="gone"
             android:text="@string/select_icon"
             android:textSize="20sp" />
 

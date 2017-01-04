@@ -67,7 +67,7 @@ public class ConfigureActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //显示、隐藏文字设置
                 appwidget_text.setVisibility(isChecked ? View.GONE :View.VISIBLE);
-                editor.putBoolean("show_text",isChecked);
+                editor.putBoolean("show_text",!isChecked);
                 editor.apply();
             }
         });

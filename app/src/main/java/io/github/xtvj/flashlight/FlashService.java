@@ -42,7 +42,7 @@ public class FlashService extends Service {
 
         SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        Boolean b = sp.getBoolean("opened", true);
+        Boolean b = sp.getBoolean("opened", false);
         editor.putInt("appWidgetId", appWidgetId);
         if (b) {
             FlashSwitch.setFlashlightEnabled(FlashService.this, false);
@@ -60,14 +60,14 @@ public class FlashService extends Service {
 
         boolean show_text = sp.getBoolean("show_text",true);
         if (show_text){
-            views.setViewVisibility(R.id.appwidget_text, View.GONE);
+            views.setViewVisibility(R.id.appwidget_text, View.VISIBLE);
         }else{
-            views.setViewVisibility(R.id.appwidget_text,View.VISIBLE);
+            views.setViewVisibility(R.id.appwidget_text,View.GONE);
         }
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
 
-        if (b) {
+        if (!b) {
             stopSelf(flags);//关闭服务
         }
         return super.onStartCommand(intent, flags, startId);
@@ -79,7 +79,7 @@ public class FlashService extends Service {
 
 
         SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
-        Boolean b = sp.getBoolean("opened", true);
+        Boolean b = sp.getBoolean("opened", false);
         if (b) {
             if (appWidgetId != 0) {
                 // 设置开始监听
