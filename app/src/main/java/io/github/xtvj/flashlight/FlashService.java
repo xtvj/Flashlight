@@ -62,11 +62,11 @@ public class FlashService extends Service {
             views.setViewVisibility(R.id.appwidget_text,View.GONE);
         }
 
-        appWidgetManager.updateAppWidget(new ComponentName(getBaseContext(), FlashLight.class), views);
+        appWidgetManager.updateAppWidget(new ComponentName(this, FlashLight.class), views);
 
-        if (!b) {
-            stopSelf(flags);//关闭服务
-        }
+//        if (!b) {
+//            stopSelf(flags);//关闭服务
+//        }
         return super.onStartCommand(intent, flags, startId);
     }
 

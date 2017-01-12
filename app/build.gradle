@@ -7,8 +7,8 @@ android {
         applicationId "io.github.xtvj.flashlight"
         minSdkVersion 23
         targetSdkVersion 24
-        versionCode 600
-        versionName "1.6"
+        versionCode 800
+        versionName "1.8"
     }
     buildTypes {
         release {
