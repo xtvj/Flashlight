@@ -112,7 +112,6 @@ public class ConfigureActivity extends Activity {
         // If this activity was started with an intent without an app widget ID, finish with an error.
         if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
-            return;
         }
 
 //        mAppWidgetText.setText(loadTitlePref(ConfigureActivity.this, mAppWidgetId));

@@ -36,9 +36,13 @@ public class FlashService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
 
+
+        if (intent.getStringExtra("onClick") == null){
+            return super.onStartCommand(intent, flags, startId);
+        }
         // 设置开始监听
         Intent intentStart = new Intent(FlashService.this, FlashService.class);
-
+        intentStart.putExtra("onClick","onClick");
         SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         Boolean b = sp.getBoolean("opened", false);
@@ -73,13 +77,12 @@ public class FlashService extends Service {
 
     @Override
     public void onDestroy() {
-
-
         SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
         Boolean b = sp.getBoolean("opened", false);
         if (b) {
                 // 设置开始监听
                 Intent intentStart = new Intent(FlashService.this, FlashService.class);
+                intentStart.putExtra("onClick","onClick");
                 FlashSwitch.setFlashlightEnabled(FlashService.this, false);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean("opened", false);
@@ -89,7 +92,6 @@ public class FlashService extends Service {
                 views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
                 appWidgetManager.updateAppWidget(new ComponentName(getBaseContext(), FlashLight.class), views);
         }
-
         super.onDestroy();
     }
 }

@@ -21,6 +21,7 @@ public class FlashLight extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.flashlight);
 
         Intent intentStart = new Intent(context,FlashService.class);
+        intentStart.putExtra("onClick","onClick");
 
         SharedPreferences sp = context.getSharedPreferences("FlashLight",Context.MODE_PRIVATE);
         Boolean b = sp.getBoolean("opened",false);
