@@ -26,16 +26,12 @@ public class FlashService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
         appWidgetManager = AppWidgetManager.getInstance(FlashService.this);
         views = new RemoteViews(getPackageName(), R.layout.flashlight);
-
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-
 
         if (intent.getStringExtra("onClick") == null){
             return super.onStartCommand(intent, flags, startId);
@@ -77,21 +73,21 @@ public class FlashService extends Service {
 
     @Override
     public void onDestroy() {
-        SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
-        Boolean b = sp.getBoolean("opened", false);
-        if (b) {
-                // 设置开始监听
-                Intent intentStart = new Intent(FlashService.this, FlashService.class);
-                intentStart.putExtra("onClick","onClick");
-                FlashSwitch.setFlashlightEnabled(FlashService.this, false);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putBoolean("opened", false);
-                editor.apply();
-                views.setImageViewResource(R.id.iv_widget, sp.getInt("image",0) == 0 ? R.drawable.flashlight_off : R.drawable.moon_off);
-                PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
-                views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
-                appWidgetManager.updateAppWidget(new ComponentName(getBaseContext(), FlashLight.class), views);
-        }
+//        SharedPreferences sp = getSharedPreferences("FlashLight", Context.MODE_PRIVATE);
+//        Boolean b = sp.getBoolean("opened", false);
+//        if (b) {
+//                // 设置开始监听
+//                Intent intentStart = new Intent(FlashService.this, FlashService.class);
+//                intentStart.putExtra("onClick","onClick");
+//                FlashSwitch.setFlashlightEnabled(FlashService.this, false);
+//                SharedPreferences.Editor editor = sp.edit();
+//                editor.putBoolean("opened", false);
+//                editor.apply();
+//                views.setImageViewResource(R.id.iv_widget, sp.getInt("image",0) == 0 ? R.drawable.flashlight_off : R.drawable.moon_off);
+//                PendingIntent pendingitent = PendingIntent.getService(FlashService.this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
+//                views.setOnClickPendingIntent(R.id.iv_widget, pendingitent);
+//                appWidgetManager.updateAppWidget(new ComponentName(getBaseContext(), FlashLight.class), views);
+//        }
         super.onDestroy();
     }
 }
