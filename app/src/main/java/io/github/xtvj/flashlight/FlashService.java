@@ -33,9 +33,10 @@ public class FlashService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        if (intent.getStringExtra("onClick") == null){
+        if (intent == null || intent.getStringExtra("onClick") == null){
             return super.onStartCommand(intent, flags, startId);
         }
+
         // 设置开始监听
         Intent intentStart = new Intent(FlashService.this, FlashService.class);
         intentStart.putExtra("onClick","onClick");
