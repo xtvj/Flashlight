@@ -6,4 +6,8 @@
 
 2、如果有多个闪光灯，会开启所有后置闪光灯。
 
-app下载地址：https://github.com/xtvj/Flashlight/raw/master/app-release.apk
+app下载地址：
+
+https://github.com/xtvj/Flashlight/raw/master/app-release.apk
+
+或https://github.com/xtvj/Flashlight/releases
